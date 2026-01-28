@@ -1,43 +1,18 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using WindowsFormsApp1.BLL;
+using WindowsFormsApp1.DTO;
+using ClosedXML.Excel;
 
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        // Chuỗi kết nối (Connection String) - Nên lưu trong App.config để bảo mật và dễ thay đổi
-        string connectionString = "Data Source=.;Initial Catalog=sale;Trusted_Connection=True";
-        SqlConnection conn;
-        SqlDataAdapter adapter;
-        DataTable dt;
+        StudentBLL bll = new StudentBLL(); // Khởi tạo lớp nghiệp vụ
 
         public Form1()
         {
             InitializeComponent();
-        }
-
-        // Hàm tải dữ liệu lên DataGridView
-        private void LoadData()
-        {
-            try
-            {
-                using (conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM Student";
-                    adapter = new SqlDataAdapter(query, conn);
-                    dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvStudent.DataSource = dt; // Đổi tên dgvCustomer -> dgvStudent cho phù hợp
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -45,176 +20,47 @@ namespace WindowsFormsApp1
             LoadData();
         }
 
-        // Hàm kiểm tra tính hợp lệ của dữ liệu đầu vào (Validation)
-        private bool ValidateInput()
+        private void LoadData()
         {
-            // Kiểm tra MSSV
-            if (string.IsNullOrWhiteSpace(tbMSSV.Text) || tbMSSV.Text.Length != 10 || !long.TryParse(tbMSSV.Text, out _))
-            {
-                MessageBox.Show("MSSV phải là chuỗi số 10 chữ số.");
-                return false;
-            }
+            // 1. Lấy dữ liệu từ BLL
+            dgvStudent.DataSource = bll.GetStudentList();
 
-            // Kiểm tra Tên
-            if (string.IsNullOrWhiteSpace(tbName.Text))
-            {
-                MessageBox.Show("Vui lòng nhập tên sinh viên.");
-                return false;
-            }
+            // 2. Đổi tên cột hiển thị (Mapping từ tên biến sang Tiếng Việt)
+            // Lưu ý: Tên trong ngoặc vuông ["..."] phải khớp chính xác với tên thuộc tính trong StudentDTO
 
-            // Kiểm tra SĐT
-            if (!string.IsNullOrWhiteSpace(tbPhone.Text) && (tbPhone.Text.Length != 10 || !long.TryParse(tbPhone.Text, out _)))
-            {
-                MessageBox.Show("Số điện thoại phải là chuỗi số 10 chữ số.");
-                return false;
-            }
+            if (dgvStudent.Columns.Contains("MSSV"))
+                dgvStudent.Columns["MSSV"].HeaderText = "Ma So SV";
 
-            return true;
+            if (dgvStudent.Columns.Contains("Name"))
+                dgvStudent.Columns["Name"].HeaderText = "Ho Ten";
+
+            if (dgvStudent.Columns.Contains("Class"))
+                dgvStudent.Columns["Class"].HeaderText = "Lop";
+
+            if (dgvStudent.Columns.Contains("Gender"))
+                dgvStudent.Columns["Gender"].HeaderText = "Gioi Tinh";
+
+            if (dgvStudent.Columns.Contains("Dob"))
+                dgvStudent.Columns["Dob"].HeaderText = "Ngay Sinh";
+
+            if (dgvStudent.Columns.Contains("Hometown"))
+                dgvStudent.Columns["Hometown"].HeaderText = "Que Quan";
+
+            if (dgvStudent.Columns.Contains("Phone"))
+                dgvStudent.Columns["Phone"].HeaderText = "SDT";
+
+            // 3. Ẩn cột ID (Vì ID là kỹ thuật, người dùng không cần thấy)
+            if (dgvStudent.Columns.Contains("Id"))
+                dgvStudent.Columns["Id"].Visible = false;
+
+            // 4. (Tùy chọn) Định dạng lại cột Ngày sinh cho dễ nhìn (dd/MM/yyyy)
+            if (dgvStudent.Columns.Contains("Dob"))
+                dgvStudent.Columns["Dob"].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
+        // --- CÁC HÀM TIỆN ÍCH BỔ TRỢ (Đã thêm mới để fix lỗi) ---
 
-
-        private void btNew_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInput()) return;
-
-            try
-            {
-                using (conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "INSERT INTO Student (MSSV, Name, Class, Gender, Dob, Hometown, Phone) VALUES (@MSSV, @Name, @Class, @Gender, @Dob, @Hometown, @Phone)";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        // Sử dụng Parameters để tránh lỗi SQL Injection
-                        cmd.Parameters.AddWithValue("@MSSV", tbMSSV.Text);
-                        cmd.Parameters.AddWithValue("@Name", tbName.Text);
-                        cmd.Parameters.AddWithValue("@Class", tbClass.Text);
-                        cmd.Parameters.AddWithValue("@Gender", cbGender.Text); // ComboBox cho giới tính
-                        cmd.Parameters.AddWithValue("@Dob", dtpDob.Value);     // DateTimePicker cho ngày sinh
-                        cmd.Parameters.AddWithValue("@Hometown", tbHometown.Text);
-                        cmd.Parameters.AddWithValue("@Phone", tbPhone.Text);
-
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                LoadData(); // Tải lại dữ liệu sau khi thêm
-                ClearInput();
-                MessageBox.Show("Thêm thành công!");
-            }
-            catch (SqlException ex)
-            {
-                if (ex.Number == 2627) // Lỗi trùng khóa (MSSV trùng)
-                    MessageBox.Show("MSSV đã tồn tại.");
-                else
-                    MessageBox.Show("Lỗi thêm: " + ex.Message);
-            }
-        }
-
-        private void btDelete_Click(object sender, EventArgs e)
-        {
-            if (dgvStudent.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Vui lòng chọn dòng để xóa.");
-                return;
-            }
-
-            // Lấy ID (khóa chính) của dòng đang chọn
-            int idToDelete = Convert.ToInt32(dgvStudent.CurrentRow.Cells["Id"].Value);
-
-            if (MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                try
-                {
-                    using (conn = new SqlConnection(connectionString))
-                    {
-                        conn.Open();
-                        string query = "DELETE FROM Student WHERE Id = @Id";
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@Id", idToDelete);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                    LoadData();
-                    ClearInput();
-                    MessageBox.Show("Xóa thành công!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi xóa: " + ex.Message);
-                }
-            }
-        }
-
-        private void btEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvStudent.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Vui lòng chọn dòng để sửa.");
-                return;
-            }
-
-            if (!ValidateInput()) return;
-
-            int idToEdit = Convert.ToInt32(dgvStudent.CurrentRow.Cells["Id"].Value);
-
-            try
-            {
-                using (conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "UPDATE Student SET MSSV=@MSSV, Name=@Name, Class=@Class, Gender=@Gender, Dob=@Dob, Hometown=@Hometown, Phone=@Phone WHERE Id=@Id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Id", idToEdit);
-                        cmd.Parameters.AddWithValue("@MSSV", tbMSSV.Text);
-                        cmd.Parameters.AddWithValue("@Name", tbName.Text);
-                        cmd.Parameters.AddWithValue("@Class", tbClass.Text);
-                        cmd.Parameters.AddWithValue("@Gender", cbGender.Text);
-                        cmd.Parameters.AddWithValue("@Dob", dtpDob.Value);
-                        cmd.Parameters.AddWithValue("@Hometown", tbHometown.Text);
-                        cmd.Parameters.AddWithValue("@Phone", tbPhone.Text);
-
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                LoadData();
-                MessageBox.Show("Cập nhật thành công!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi sửa: " + ex.Message);
-            }
-        }
-
-        private void btExit_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Bạn muốn thoát?", "Thoát", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-        }
-
-        // Sự kiện khi click vào một dòng trên Grid -> Hiển thị thông tin lên các TextBox
-        private void dgvStudent_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvStudent.Rows[e.RowIndex];
-                tbMSSV.Text = row.Cells["MSSV"].Value.ToString();
-                tbName.Text = row.Cells["Name"].Value.ToString();
-                tbClass.Text = row.Cells["Class"].Value.ToString();
-                cbGender.Text = row.Cells["Gender"].Value.ToString();
-
-                if (row.Cells["Dob"].Value != DBNull.Value)
-                    dtpDob.Value = Convert.ToDateTime(row.Cells["Dob"].Value);
-
-                tbHometown.Text = row.Cells["Hometown"].Value.ToString();
-                tbPhone.Text = row.Cells["Phone"].Value.ToString();
-            }
-        }
-
-        // Hàm xóa trắng các ô nhập liệu
+        // Hàm xóa trắng các ô nhập liệu sau khi thêm/xóa/sửa
+        // 1. Cập nhật hàm ClearInput (Để mở khóa ô MSSV khi thêm mới)
         private void ClearInput()
         {
             tbMSSV.Clear();
@@ -224,14 +70,159 @@ namespace WindowsFormsApp1
             tbPhone.Clear();
             cbGender.SelectedIndex = -1;
             dtpDob.Value = DateTime.Now;
-        }
 
-        // Ràng buộc chỉ nhập số cho MSSV và Phone ngay khi gõ phím
+            // QUAN TRỌNG: Cho phép nhập MSSV lại (trạng thái thêm mới)
+            tbMSSV.Enabled = true;
+        }
+        // Hàm chặn nhập chữ cái vào ô số (MSSV, Phone)
         private void tbNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true; // Chặn ký tự không phải số
+            }
+        }
+
+        // ---------------------------------------------------------
+
+        private void btNew_Click(object sender, EventArgs e)
+        {
+            // 1. Đóng gói dữ liệu từ giao diện vào DTO
+            StudentDTO sv = new StudentDTO();
+            sv.MSSV = tbMSSV.Text;
+            sv.Name = tbName.Text;
+            sv.Class = tbClass.Text;
+            sv.Gender = cbGender.Text;
+            sv.Dob = dtpDob.Value;
+            sv.Hometown = tbHometown.Text;
+            sv.Phone = tbPhone.Text;
+
+            // 2. Gửi xuống BLL xử lý và nhận thông báo
+            string result = bll.AddStudent(sv);
+
+            // 3. Hiển thị kết quả
+            MessageBox.Show(result);
+
+            // 4. Nếu thành công thì tải lại bảng
+            if (result.Contains("thành công"))
+            {
+                LoadData();
+                ClearInput();
+            }
+        }
+
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvStudent.SelectedRows.Count > 0)
+            {
+                if (MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // Lấy ID từ dòng đang chọn
+                    int id = Convert.ToInt32(dgvStudent.CurrentRow.Cells["Id"].Value);
+                    string result = bll.DeleteStudent(id);
+                    MessageBox.Show(result);
+                    LoadData();
+                    ClearInput();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn dòng để xóa.");
+            }
+        }
+
+        // Hàm xử lý sự kiện nút Sửa (Đã thêm mới)
+        // 3. Cập nhật nút Sửa (btEdit_Click)
+        private void btEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvStudent.SelectedRows.Count > 0)
+            {
+                // Đóng gói dữ liệu
+                StudentDTO sv = new StudentDTO();
+                // Lấy ID ẩn (đây là chìa khóa để biết đang sửa ai)
+                sv.Id = Convert.ToInt32(dgvStudent.CurrentRow.Cells["Id"].Value);
+
+                // MSSV lấy từ ô nhập (dù bị khóa nhưng text vẫn còn)
+                // Tuy nhiên DAL sẽ bỏ qua trường này nên giá trị ở đây không ảnh hưởng DB
+                sv.MSSV = tbMSSV.Text;
+
+                sv.Name = tbName.Text;
+                sv.Class = tbClass.Text;
+                sv.Gender = cbGender.Text;
+                sv.Dob = dtpDob.Value;
+                sv.Hometown = tbHometown.Text;
+                sv.Phone = tbPhone.Text;
+
+                // Gọi hàm BLL
+                string result = bll.UpdateStudent(sv);
+                MessageBox.Show(result);
+
+                // Nếu thành công thì tải lại bảng và xóa trắng (để mở lại ô MSSV)
+                if (result.Contains("thành công"))
+                {
+                    LoadData();
+                    ClearInput();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn dòng để sửa.");
+            }
+        }
+        // Hàm xử lý sự kiện nút Thoát (Đã thêm mới)
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn muốn thoát?", "Thoát", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        // Hàm xử lý khi click vào dòng trong bảng -> Đổ dữ liệu lên ô nhập (Đã thêm mới)
+        // 2. Cập nhật sự kiện CellClick (Để khóa ô MSSV khi chọn dòng)
+        private void dgvStudent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvStudent.Rows[e.RowIndex];
+                tbMSSV.Text = row.Cells["MSSV"].Value != null ? row.Cells["MSSV"].Value.ToString() : "";
+                tbName.Text = row.Cells["Name"].Value != null ? row.Cells["Name"].Value.ToString() : "";
+                tbClass.Text = row.Cells["Class"].Value != null ? row.Cells["Class"].Value.ToString() : "";
+                cbGender.Text = row.Cells["Gender"].Value != null ? row.Cells["Gender"].Value.ToString() : "";
+
+                if (row.Cells["Dob"].Value != null && row.Cells["Dob"].Value != DBNull.Value)
+                    dtpDob.Value = Convert.ToDateTime(row.Cells["Dob"].Value);
+
+                tbHometown.Text = row.Cells["Hometown"].Value != null ? row.Cells["Hometown"].Value.ToString() : "";
+                tbPhone.Text = row.Cells["Phone"].Value != null ? row.Cells["Phone"].Value.ToString() : "";
+
+                // QUAN TRỌNG: Khóa ô MSSV để người dùng biết là không được sửa
+                tbMSSV.Enabled = false;
+            }
+        }
+        private void btExportExcel_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Lấy DataTable từ BLL 
+                        System.Data.DataTable dt = bll.GetStudentList();
+
+                        using (XLWorkbook workbook = new XLWorkbook())
+                        {
+                            workbook.Worksheets.Add(dt, "DanhSachSinhVien");
+                            workbook.SaveAs(sfd.FileName);
+                        }
+                        MessageBox.Show("Xuất Excel thành công!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi: " + ex.Message);
+                    }
+                }
             }
         }
     }
