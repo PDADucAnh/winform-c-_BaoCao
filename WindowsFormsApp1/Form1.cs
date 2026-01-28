@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using WindowsFormsApp1.BLL;
 using WindowsFormsApp1.DTO;
 using ClosedXML.Excel;
+using System.Collections.Generic;
 
 namespace WindowsFormsApp1
 {
@@ -221,6 +222,136 @@ namespace WindowsFormsApp1
                     catch (Exception ex)
                     {
                         MessageBox.Show("Lỗi: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void btImportExcel_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel Workbook|*.xlsx;*.xls", ValidateNames = true })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        List<StudentDTO> listFromExcel = new List<StudentDTO>();
+
+                        using (var workbook = new XLWorkbook(ofd.FileName))
+                        {
+                            var worksheet = workbook.Worksheet(1);
+                            var rows = worksheet.RangeUsed().RowsUsed();
+
+                            foreach (var row in rows)
+                            {
+                                // Bỏ qua dòng tiêu đề (Dòng 1)
+                                if (row.RowNumber() == 1) continue;
+
+                                try
+                                {
+                                    StudentDTO sv = new StudentDTO();
+
+                                    // --- ÁNH XẠ CỘT THEO FILE EXCEL CỦA BẠN ---
+
+                                    // Cột A (1): MSSV
+                                    sv.MSSV = row.Cell(1).Value.ToString().Trim();
+
+                                    // Cột B (2): HỌ VÀ TÊN
+                                    sv.Name = row.Cell(2).Value.ToString().Trim();
+
+                                    // Cột C (3): Giới tính
+                                    sv.Gender = row.Cell(3).Value.ToString().Trim();
+
+                                    // Cột D (4): Ngày sinh
+                                    if (row.Cell(4).IsEmpty())
+                                    {
+                                        // Nếu trống thì cho mặc định 18 tuổi để qua mặt validation (hoặc để Now tùy bạn)
+                                        sv.Dob = DateTime.Now.AddYears(-18);
+                                    }
+                                    else
+                                    {
+                                        if (row.Cell(4).DataType == XLDataType.DateTime)
+                                        {
+                                            sv.Dob = row.Cell(4).GetDateTime();
+                                        }
+                                        else
+                                        {
+                                            // Lấy chuỗi ngày tháng thô
+                                            string rawDate = row.Cell(4).Value.ToString().Trim();
+
+                                            // Thử ép kiểu theo nhiều định dạng phổ biến ở Việt Nam
+                                            string[] formats = { "dd/MM/yyyy", "d/M/yyyy", "dd-MM-yyyy", "d-M-yyyy" };
+
+                                            DateTime dateValue;
+                                            if (DateTime.TryParseExact(rawDate, formats,
+                                                System.Globalization.CultureInfo.InvariantCulture,
+                                                System.Globalization.DateTimeStyles.None, out dateValue))
+                                            {
+                                                sv.Dob = dateValue;
+                                            }
+                                            else
+                                            {
+                                                // Nếu vẫn lỗi thì thử cách Parse thông thường
+                                                if (!DateTime.TryParse(rawDate, out dateValue))
+                                                {
+                                                    dateValue = DateTime.Now; // Fallback cuối cùng
+                                                }
+                                                sv.Dob = dateValue;
+                                            }
+                                        }
+                                    }
+                                    // Cột E (5): SỐ ĐT
+                                    string rawPhone = row.Cell(5).Value.ToString().Trim();
+                                    if (rawPhone.Length == 9 && long.TryParse(rawPhone, out _))
+                                    {
+                                        rawPhone = "0" + rawPhone;
+                                    }
+                                    sv.Phone = rawPhone;
+
+                                    // Cột G (7): LỚP
+                                    sv.Class = row.Cell(7).Value.ToString().Trim();
+
+                                    // Cột H (8): Quê quán
+                                    sv.Hometown = row.Cell(8).Value.ToString().Trim();
+
+                                    // -------------------------------------------
+
+                                    listFromExcel.Add(sv);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"Lỗi dòng {row.RowNumber()}: {ex.Message}");
+                                }
+                            }
+                        }
+
+                        // Nếu danh sách rỗng
+                        if (listFromExcel.Count == 0)
+                        {
+                            MessageBox.Show("Không đọc được dòng dữ liệu nào! Hãy kiểm tra lại file Excel.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Gọi BLL xử lý Import
+                        int success, fail;
+                        string errorLog;
+                        bll.ImportStudents(listFromExcel, out success, out fail, out errorLog);
+
+                        // Hiển thị kết quả
+                        LoadData();
+                        string msg = $"Tổng số dòng tìm thấy: {listFromExcel.Count}\n" +
+                                     $"- Thêm thành công: {success}\n" +
+                                     $"- Thất bại: {fail}";
+
+                        if (!string.IsNullOrEmpty(errorLog))
+                            msg += $"\n\nChi tiết lỗi:\n{errorLog}";
+
+                        MessageBox.Show(msg, "Kết quả Import", MessageBoxButtons.OK,
+                            fail > 0 ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi đọc file: " + ex.Message);
                     }
                 }
             }

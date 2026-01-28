@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using WindowsFormsApp1.DTO;
 
@@ -88,6 +90,50 @@ namespace WindowsFormsApp1.DAL
                 cmd.Parameters.AddWithValue("@Phone", sv.Phone);
 
                 return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+        public bool InsertListStudents(List<StudentDTO> students)
+        {
+            using (SqlConnection conn = DatabaseConnection.GetConnection())
+            {
+                conn.Open();
+
+                // 1. Bắt đầu Transaction
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    string query = @"INSERT INTO Student (MSSV, Name, Class, Gender, Dob, Hometown, Phone) 
+                             VALUES (@MSSV, @Name, @Class, @Gender, @Dob, @Hometown, @Phone)";
+
+                    foreach (var sv in students)
+                    {
+                        // Lưu ý: Phải truyền 'transaction' vào SqlCommand
+                        using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@MSSV", sv.MSSV);
+                            cmd.Parameters.AddWithValue("@Name", sv.Name);
+                            cmd.Parameters.AddWithValue("@Class", sv.Class);
+                            cmd.Parameters.AddWithValue("@Gender", sv.Gender);
+                            cmd.Parameters.AddWithValue("@Dob", sv.Dob);
+                            cmd.Parameters.AddWithValue("@Hometown", sv.Hometown);
+                            cmd.Parameters.AddWithValue("@Phone", sv.Phone);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    // 2. Nếu chạy hết vòng lặp mà không lỗi -> Commit (Lưu thật sự)
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    // 3. Nếu có bất kỳ lỗi nào -> Rollback (Hủy toàn bộ, coi như chưa làm gì)
+                    transaction.Rollback();
+                    throw; // Ném lỗi ra ngoài để BLL biết
+                }
             }
         }
     }

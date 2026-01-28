@@ -93,5 +93,80 @@ namespace WindowsFormsApp1.BLL
             if (dal.DeleteStudent(id)) return "Xóa thành công!";
             else return "Xóa thất bại!";
         }
+
+        // Thêm hàm bổ trợ này vào class StudentBLL (để dùng chung cho cả Thêm lẻ và Thêm list)
+        private string ValidateStudentData(StudentDTO sv)
+        {
+            if (string.IsNullOrEmpty(sv.MSSV) || string.IsNullOrEmpty(sv.Name))
+                return "MSSV và Tên trống";
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(sv.MSSV, @"^[0-9]{10}$"))
+                return "MSSV sai định dạng";
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(sv.Phone, @"^[0-9]{10}$"))
+                return "SĐT sai định dạng";
+
+            int age = DateTime.Now.Year - sv.Dob.Year;
+            if (age < 18)
+                return "Chưa đủ 18 tuổi";
+
+            return "OK"; // Dữ liệu ổn
+        }
+
+        // Thêm hàm này vào class StudentBLL
+        public string ImportStudents(List<StudentDTO> rawList, out int success, out int fail, out string errorLog)
+        {
+            List<StudentDTO> validList = new List<StudentDTO>();
+            success = 0;
+            fail = 0;
+            errorLog = "";
+            int rowIndex = 0; // Để đếm dòng báo lỗi cho người dùng
+
+            // 1. Giai đoạn SÀNG LỌC (Validation)
+            foreach (var sv in rawList)
+            {
+                rowIndex++;
+                string check = ValidateStudentData(sv);
+
+                if (check == "OK")
+                {
+                    validList.Add(sv);
+                }
+                else
+                {
+                    fail++;
+                    errorLog += $"Dòng {rowIndex}: {check} (MSSV: {sv.MSSV})\n";
+                }
+            }
+
+            // 2. Giai đoạn INSERT TRANSACTION
+            if (validList.Count > 0)
+            {
+                try
+                {
+                    // Gọi DAL để insert 1 lần cục validList
+                    bool dbResult = dal.InsertListStudents(validList);
+
+                    if (dbResult)
+                    {
+                        success = validList.Count;
+                    }
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    // Trường hợp lỗi DB (ví dụ: trùng MSSV trong DB mà code chưa check được)
+                    // Vì dùng Transaction nên nếu lỗi là toàn bộ validList bị hủy
+                    success = 0;
+                    fail += validList.Count;
+
+                    if (ex.Number == 2627)
+                        errorLog += "\nLỖI DATABASE: Có MSSV trong danh sách đã tồn tại trong hệ thống. Giao dịch bị hủy bỏ.";
+                    else
+                        errorLog += $"\nLỖI DATABASE: {ex.Message}. Giao dịch bị hủy bỏ.";
+                }
+            }
+
+            return "Hoàn tất xử lý.";
+        }
     }
 }
