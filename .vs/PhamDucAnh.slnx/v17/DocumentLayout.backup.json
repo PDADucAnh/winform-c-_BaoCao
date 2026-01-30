@@ -1,0 +1,222 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\TrenLop\\C#\\PhamDucAnh\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dto\\gradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dto\\gradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dto\\subjectdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dto\\subjectdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dto\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dto\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\bll\\subjectbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\bll\\subjectbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\bll\\studentbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\bll\\studentbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\gui\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\gui\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\gui\\frmdashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\gui\\frmdashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dal\\studentdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dal\\studentdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dto\\majordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dto\\majordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dto\\facultydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dto\\facultydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dto\\accountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dto\\accountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|d:\\trenlop\\c#\\phamducanh\\windowsformsapp1\\dal\\dashboarddal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3079EB5D-2324-4E3E-913F-871E304167B8}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\dal\\dashboarddal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SubjectBLL.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\BLL\\SubjectBLL.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\BLL\\SubjectBLL.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\BLL\\SubjectBLL.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\BLL\\SubjectBLL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:58:53.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StudentBLL.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\BLL\\StudentBLL.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\BLL\\StudentBLL.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\BLL\\StudentBLL.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\BLL\\StudentBLL.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:58:45.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmMain.cs [Design]",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\GUI\\frmMain.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\GUI\\frmMain.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\GUI\\frmMain.cs [Design]",
+              "RelativeToolTip": "WindowsFormsApp1\\GUI\\frmMain.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:58:35.013Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "frmDashboard.cs [Design]",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\GUI\\frmDashboard.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\GUI\\frmDashboard.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\GUI\\frmDashboard.cs [Design]",
+              "RelativeToolTip": "WindowsFormsApp1\\GUI\\frmDashboard.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:58:16.606Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SubjectDTO.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\SubjectDTO.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DTO\\SubjectDTO.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\SubjectDTO.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DTO\\SubjectDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:37.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentDTO.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\StudentDTO.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DTO\\StudentDTO.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\StudentDTO.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DTO\\StudentDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:33.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GradeDTO.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\GradeDTO.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DTO\\GradeDTO.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\GradeDTO.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DTO\\GradeDTO.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:20.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "StudentDAL.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DAL\\StudentDAL.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DAL\\StudentDAL.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DAL\\StudentDAL.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DAL\\StudentDAL.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:45.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MajorDTO.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\MajorDTO.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DTO\\MajorDTO.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\MajorDTO.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DTO\\MajorDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:31.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FacultyDTO.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\FacultyDTO.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DTO\\FacultyDTO.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\FacultyDTO.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DTO\\FacultyDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:18.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AccountDTO.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\AccountDTO.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DTO\\AccountDTO.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DTO\\AccountDTO.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DTO\\AccountDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:16.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DashboardDAL.cs",
+              "DocumentMoniker": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DAL\\DashboardDAL.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\DAL\\DashboardDAL.cs",
+              "ToolTip": "D:\\TrenLop\\C#\\PhamDucAnh\\WindowsFormsApp1\\DAL\\DashboardDAL.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\DAL\\DashboardDAL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T08:56:01.504Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

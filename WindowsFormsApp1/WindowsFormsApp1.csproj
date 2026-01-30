@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="BLL\AccountBLL.cs" />
     <Compile Include="BLL\ClassBLL.cs" />
+    <Compile Include="BLL\DashboardBLL.cs" />
     <Compile Include="BLL\FacultyBLL.cs" />
     <Compile Include="BLL\GradeBLL.cs" />
     <Compile Include="BLL\MajorBLL.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="BLL\SubjectBLL.cs" />
     <Compile Include="DAL\AccountDAL.cs" />
     <Compile Include="DAL\ClassDAL.cs" />
+    <Compile Include="DAL\DashboardDAL.cs" />
     <Compile Include="DAL\DatabaseConnection.cs" />
     <Compile Include="DAL\FacultyDAL.cs" />
     <Compile Include="DAL\GradeDAL.cs" />
@@ -106,18 +108,57 @@
     <Compile Include="DTO\MajorDTO.cs" />
     <Compile Include="DTO\StudentDTO.cs" />
     <Compile Include="DTO\SubjectDTO.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="GUI\frmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GUI\frmDashboard.Designer.cs">
+      <DependentUpon>frmDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmClass.Designer.cs">
+      <DependentUpon>frmClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmFaculty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmFaculty.Designer.cs">
+      <DependentUpon>frmFaculty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmGrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmGrade.Designer.cs">
+      <DependentUpon>frmGrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmStudent.Designer.cs">
+      <DependentUpon>frmStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmSubject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ManagementForms\frmSubject.Designer.cs">
+      <DependentUpon>frmSubject.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExcelHelper.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

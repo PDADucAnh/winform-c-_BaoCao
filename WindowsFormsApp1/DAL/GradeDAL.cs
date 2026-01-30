@@ -18,11 +18,14 @@ namespace WindowsFormsApp1.DAL
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
                 conn.Open();
+                // --- SỬA LỖI TẠI DÒNG JOIN BÊN DƯỚI ---
+                // Sửa s.StudentID thành s.Id (vì bảng Student có khóa chính là Id)
                 string query = @"SELECT g.StudentID, s.MSSV, s.Name AS StudentName, 
                                         g.SubjectID, sub.SubjectName, g.Score 
                                  FROM Grade g
-                                 JOIN Student s ON g.StudentID = s.StudentID
+                                 JOIN Student s ON g.StudentID = s.Id 
                                  JOIN Subject sub ON g.SubjectID = sub.SubjectID";
+
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 da.Fill(dt);
             }
@@ -30,7 +33,6 @@ namespace WindowsFormsApp1.DAL
         }
 
         // Thêm hoặc Cập nhật điểm (Upsert)
-        // Nếu đã có điểm -> Update. Chưa có -> Insert
         public bool SaveGrade(GradeDTO gr)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())

@@ -15,7 +15,7 @@ namespace WindowsFormsApp1.DAL
             {
                 conn.Open();
                 // JOIN với Class để lấy tên lớp hiển thị lên Grid
-                string query = @"SELECT s.StudentID AS Id, s.MSSV, s.Name, s.Gender, 
+                string query = @"SELECT s.Id, s.MSSV, s.Name, s.Gender, 
                                         s.Dob, s.Phone, s.Hometown, s.ClassID, c.ClassName
                                  FROM Student s
                                  LEFT JOIN Class c ON s.ClassID = c.ClassID";
@@ -59,7 +59,7 @@ namespace WindowsFormsApp1.DAL
                 string query = @"UPDATE Student 
                                  SET Name = @Name, Gender = @Gender, Dob = @Dob, 
                                      Phone = @Phone, Hometown = @Hometown, ClassID = @ClassID
-                                 WHERE StudentID = @Id";
+                                 WHERE Id = @Id";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Id", sv.Id);
@@ -81,7 +81,7 @@ namespace WindowsFormsApp1.DAL
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
                 conn.Open();
-                string query = "DELETE FROM Student WHERE StudentID = @Id";
+                string query = "DELETE FROM Student WHERE Id = @Id";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 return cmd.ExecuteNonQuery() > 0;

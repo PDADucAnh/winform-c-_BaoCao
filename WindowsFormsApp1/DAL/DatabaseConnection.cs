@@ -6,7 +6,7 @@ namespace WindowsFormsApp1.DAL
     public class DatabaseConnection
     {
         // Nên lưu chuỗi này trong App.config thực tế, nhưng để đơn giản ta để ở đây
-        private static string strConn = "Data Source=.;Initial Catalog=sale;Trusted_Connection=True";
+        private static string strConn = @"Data Source=.;Initial Catalog=sale;Trusted_Connection=True";
 
         //private static string strConn = "Data Source=.;Initial Catalog=StudentManagementDB;Trusted_Connection=True";
 
